@@ -1,0 +1,38 @@
+.top_header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5rem 3rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .link {
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+    &.active {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  html {
+    font-size: 13px;
+  }
+  .top_header {
+    padding: 0.5rem 1rem;
+    .link {
+      font-size: 13px;
+      padding: 0.2rem 0.3rem;
+    }
+    .logo {
+      max-width: 50px;
+    }
+  }
+}

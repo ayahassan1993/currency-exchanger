@@ -1,0 +1,49 @@
+/* padding and margin */
+@for $space from 1 to 11 {
+  .p_#{$space} {
+    padding: #{$space}#{"rem"};
+  }
+  .pl_#{$space} {
+    padding-left: #{$space}#{"rem"};
+  }
+  .pr_#{$space} {
+    padding-right: #{$space}#{"rem"};
+  }
+  .pt_#{$space} {
+    padding-top: #{$space}#{"rem"};
+  }
+  .pb_#{$space} {
+    padding-bottom: #{$space}#{"rem"};
+  }
+  .plr_#{$space} {
+    padding-left: #{$space}#{"rem"};
+    padding-right: #{$space}#{"rem"};
+  }
+  .ptb_#{$space} {
+    padding-top: #{$space}#{"rem"};
+    padding-bottom: #{$space}#{"rem"};
+  }
+  .m_#{$space} {
+    margin: #{$space}#{"rem"};
+  }
+  .ml_#{$space} {
+    margin-left: #{$space}#{"rem"};
+  }
+  .mr_#{$space} {
+    margin-right: #{$space}#{"rem"};
+  }
+  .mt_#{$space} {
+    margin-top: #{$space}#{"rem"};
+  }
+  .mb_#{$space} {
+    margin-bottom: #{$space}#{"rem"};
+  }
+  .mlr_#{$space} {
+    margin-left: #{$space}#{"rem"};
+    margin-right: #{$space}#{"rem"};
+  }
+  .mtb_#{$space} {
+    margin-top: #{$space}#{"rem"};
+    margin-bottom: #{$space}#{"rem"};
+  }
+}

@@ -1,6 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-@import url(./assets/sass/_custom-classes.scss);
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+header,
+div,
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+a {
+  box-sizing: border-box;
+}
+@import "./assets/sass/custom-classes";
