@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { LayoutRoutingModule } from './layout-routing.module';
-import { MaterialModule } from 'src/app/shared/material.module';
-
 
 
 @NgModule({
@@ -15,7 +13,6 @@ import { MaterialModule } from 'src/app/shared/material.module';
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    MaterialModule
   ]
 })
 export class LayoutModule { }

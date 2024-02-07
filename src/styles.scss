@@ -9,6 +9,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+main,
 header,
 div,
 h1,
@@ -20,4 +21,9 @@ span,
 a {
   box-sizing: border-box;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "./assets/sass/custom-classes";

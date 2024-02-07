@@ -1,49 +1,56 @@
+// Note : this code only to show the sass code but in general i use tailwind classes to save time
+
 /* padding and margin */
 @for $space from 1 to 11 {
   .p_#{$space} {
-    padding: #{$space}#{"rem"};
+    padding: #{$space}#{"rem"} !important;
   }
   .pl_#{$space} {
-    padding-left: #{$space}#{"rem"};
+    padding-left: #{$space}#{"rem"} !important;
   }
   .pr_#{$space} {
-    padding-right: #{$space}#{"rem"};
+    padding-right: #{$space}#{"rem"} !important;
   }
   .pt_#{$space} {
-    padding-top: #{$space}#{"rem"};
+    padding-top: #{$space}#{"rem"} !important;
   }
   .pb_#{$space} {
-    padding-bottom: #{$space}#{"rem"};
+    padding-bottom: #{$space}#{"rem"} !important;
   }
-  .plr_#{$space} {
-    padding-left: #{$space}#{"rem"};
-    padding-right: #{$space}#{"rem"};
+  .px_#{$space} {
+    padding-left: #{$space}#{"rem"} !important;
+    padding-right: #{$space}#{"rem"} !important;
   }
-  .ptb_#{$space} {
-    padding-top: #{$space}#{"rem"};
-    padding-bottom: #{$space}#{"rem"};
+  .py_#{$space} {
+    padding-top: #{$space}#{"rem"} !important;
+    padding-bottom: #{$space}#{"rem"} !important;
   }
   .m_#{$space} {
-    margin: #{$space}#{"rem"};
+    margin: #{$space}#{"rem"} !important;
   }
   .ml_#{$space} {
-    margin-left: #{$space}#{"rem"};
+    margin-left: #{$space}#{"rem"} !important;
   }
   .mr_#{$space} {
-    margin-right: #{$space}#{"rem"};
+    margin-right: #{$space}#{"rem"} !important;
   }
   .mt_#{$space} {
-    margin-top: #{$space}#{"rem"};
+    margin-top: #{$space}#{"rem"} !important;
   }
   .mb_#{$space} {
-    margin-bottom: #{$space}#{"rem"};
+    margin-bottom: #{$space}#{"rem"} !important;
   }
-  .mlr_#{$space} {
-    margin-left: #{$space}#{"rem"};
-    margin-right: #{$space}#{"rem"};
+  .mx_#{$space} {
+    margin-left: #{$space}#{"rem"} !important;
+    margin-right: #{$space}#{"rem"} !important;
   }
-  .mtb_#{$space} {
-    margin-top: #{$space}#{"rem"};
-    margin-bottom: #{$space}#{"rem"};
+  .my_#{$space} {
+    margin-top: #{$space}#{"rem"} !important;
+    margin-bottom: #{$space}#{"rem"} !important;
   }
+}
+
+// font
+.font-bold {
+  font-weight: 500 !important;
 }

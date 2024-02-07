@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -8,8 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [],
   imports: [
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
-  exports: [MatButtonModule]
+  exports: [MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule]
 })
 export class MaterialModule { }
