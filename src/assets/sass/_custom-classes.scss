@@ -54,3 +54,8 @@
 .font-bold {
   font-weight: 500 !important;
 }
+
+// buttons
+.mat-mdc-raised-button[disabled][disabled] {
+  opacity: 0.5;
+}

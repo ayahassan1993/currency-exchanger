@@ -1,0 +1,56 @@
+<div class="currancy-exchanger-card">
+    <form [formGroup]="converterForm">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Amount  -->
+            <mat-form-field class="w-100 col-span-1  max-h-20">
+                <mat-label>Amount</mat-label>
+                <input formControlName="value" type="number" matInput (keyup)="showResult=false">
+                <mat-error *ngIf="getController('value')?.invalid">
+                    Amount is Required with minimum value 1
+                </mat-error>
+            </mat-form-field>
+
+            <!-- From Input  -->
+            <mat-form-field>
+                <mat-label>From</mat-label>
+                <mat-select formControlName="from" [disabled]="!getController('value').value"
+                    (selectionChange)="showResult=false">
+                    <mat-option *ngFor="let currency of currencies"
+                        [value]="currency?.currency">{{currency?.currencyName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- To Input  -->
+            <mat-form-field>
+                <mat-label>To</mat-label>
+                <mat-select formControlName="to" [disabled]="!getController('value').value"
+                    (selectionChange)="showResult=false">
+                    <mat-option *ngFor="let currency of currencies"
+                        [value]="currency?.currency">{{currency?.currencyName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Convert Button  -->
+            <button mat-raised-button class="col-span-3 py-3 bg-black text-white h-auto" (click)="convertCurrency()"
+                [disabled]="converterForm.invalid">Convert</button>
+
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+            <p *ngIf="showResult" class="border rounded-lg py-3 px-5 border-black  mb-0">
+                1.00 {{getController('from').value}} = {{convertedCurrencyValue}}
+                {{getController('to').value}}
+            </p>
+
+            <!-- Result  -->
+            <div *ngIf="showResult" class="flex space-x-2 items-center border rounded-lg py-3 px-5 border-black ">
+                <mat-label class="whitespace-nowrap">Result : </mat-label>
+                <span class="w-100 mb-0 w-full">
+                    {{result | number:'1.0-4'}} {{getController('to').value}}
+                </span>
+            </div>
+            <!-- View Details Button  -->
+            <button *ngIf="showResult" mat-raised-button [disabled]="converterForm.invalid"
+                class="py-2 bg-black text-white h-auto max-h-11">View Details</button>
+        </div>
+    </form>
+</div>
