@@ -18,4 +18,10 @@ export class CurrencyService {
     convertCurrency(from: string, to: string) {
         return this.http.get(`pair/${from}/${to}`).pipe(map((res: any) => res?.conversion_rate));
     }
+
+    getMonthlyHistoricalRates(base: string) { // this API doesn't support for free version
+        const year = new Date().getFullYear() - 1;
+        return this.http.get(`history/${base}/${year}/1/1`);
+    }
+
 }

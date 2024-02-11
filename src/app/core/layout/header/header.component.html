@@ -3,7 +3,9 @@
         <img class="logo" src="assets/images/logo.png" alt="logo">
     </a>
     <nav>
-        <a class="link">EUR-USD Details</a>
-        <a class="link">EUR-GBP Details</a>
+        <button class="link" routerLink="home/currency-details" [queryParams]="{value:1,from:'EUR',to:'USD'}">EUR-USD
+            Details</button>
+        <button class="link" routerLink="home/currency-details" [queryParams]="{value:1,from:'EUR',to:'GBP'}">EUR-GBP
+            Details</button>
     </nav>
 </header>

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { CurrencyService } from '../../services/currency.service';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Currency } from '../../models/currency.model';
+import { Currency, FormInitData } from '../../models/currency.model';
 
 @Component({
   selector: 'app-currancy-exchanger',
@@ -10,25 +10,37 @@ import { Currency } from '../../models/currency.model';
   styleUrls: ['./currancy-exchanger.component.scss']
 })
 export class CurrancyExchangerComponent implements OnInit, OnDestroy {
+  @Input() isDetails: boolean = false;
+  @Input() initData: FormInitData = new FormInitData();
   @Output() currencyChanged = new EventEmitter();
+  @Output() fromValueChanged = new EventEmitter();
 
   subscription = new Subscription();
   currencies: Currency[] = []
-  converterForm: FormGroup = new FormGroup({
-    value: new FormControl(1, [Validators.required, Validators.min(1)]),
-    from: new FormControl('EUR', [Validators.required]),
-    to: new FormControl('USD', [Validators.required])
-  })
+  converterForm: FormGroup = new FormGroup({})
 
   result = 0
   convertedCurrencyValue = 0
   showResult = true
+  selectedCurrencyName = ''
 
   constructor(private currencyService: CurrencyService) { }
 
   ngOnInit() {
     this.getCurrencies()
     this.convertCurrency()
+  }
+
+  ngOnChanges() {
+    this.initForm()
+  }
+
+  initForm() {
+    this.converterForm = new FormGroup({
+      value: new FormControl(this.initData.value, [Validators.required, Validators.min(1)]),
+      from: new FormControl({ value: this.initData?.from, disabled: this.isDetails }, [Validators.required]),
+      to: new FormControl(this.initData?.to, [Validators.required])
+    })
   }
 
   getCurrencies() {
@@ -49,9 +61,22 @@ export class CurrancyExchangerComponent implements OnInit, OnDestroy {
           this.convertedCurrencyValue = res;
           this.result = res * this.getController('value')?.value;
           this.showResult = true;
-          this.currencyChanged.emit({ currency: this.getController('from').value, amount: this.getController('value')?.value })
+          this.fromChanged();
+          this.currencyChanged.emit({ ...this.converterForm.getRawValue() })
         })
     )
+  }
+
+  fromChanged() {
+    this.selectedCurrencyName = this.currencies.find(cur => cur.currency == this.getController('from').value)?.currencyName || '';
+    this.fromValueChanged.emit(this.selectedCurrencyName)
+  }
+
+  swapCurrency() {
+    let from = this.getController('to').value;
+    this.getController('to').setValue(this.getController('from').value)
+    this.getController('from').setValue(from)
+    this.showResult = false;
   }
 
   getController(control: string) {

@@ -12,11 +12,6 @@ const routes: Routes = [
     path: 'currency-details',
     component: CurrencyDetailsComponent,
   },
-  {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
 
 ];
 

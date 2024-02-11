@@ -6,7 +6,7 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { CurrancyExchangerComponent } from './components/currancy-exchanger/currancy-exchanger.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CurrencyDetailsComponent } from './pages/currency-details/currency-details.component';
-
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { CurrencyDetailsComponent } from './pages/currency-details/currency-deta
     CurrencyExchangerRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
+    HighchartsChartModule
   ]
 })
 export class CurrencyExchangerModule { }
