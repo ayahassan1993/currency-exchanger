@@ -5,7 +5,7 @@
             <!-- Amount  -->
             <mat-form-field class="w-full col-span-1  max-h-20">
                 <mat-label>Amount</mat-label>
-                <input formControlName="value" type="number" matInput (keyup)="showResult=false">
+                <input formControlName="value" type="number" matInput>
                 <mat-error *ngIf="getController('value')?.invalid">
                     Amount is Required with minimum value 1
                 </mat-error>
@@ -14,8 +14,7 @@
             <!-- From Input  -->
             <mat-form-field class="w-full col-span-1">
                 <mat-label>From</mat-label>
-                <mat-select formControlName="from" [disabled]="!getController('value').value"
-                    (selectionChange)="showResult = false">
+                <mat-select formControlName="from" (selectionChange)="showResult = false">
                     <mat-option *ngFor="let currency of currencies"
                         [value]="currency?.currency">{{currency?.currencyName}}</mat-option>
                 </mat-select>
@@ -27,8 +26,7 @@
             <!-- To Input  -->
             <mat-form-field class="w-full col-span-1">
                 <mat-label>To</mat-label>
-                <mat-select formControlName="to" [disabled]="!getController('value').value"
-                    (selectionChange)="showResult=false">
+                <mat-select formControlName="to" (selectionChange)="showResult=false">
                     <mat-option *ngFor="let currency of currencies"
                         [value]="currency?.currency">{{currency?.currencyName}}</mat-option>
                 </mat-select>
@@ -54,10 +52,10 @@
                 </span>
             </div>
             <!-- View Details Button  -->
-            <button routerLink="./currency-details" [queryParams]="converterForm.getRawValue()"
+            <a routerLink="./currency-details" [queryParams]="converterForm.getRawValue()"
                 *ngIf="showResult && !isDetails" mat-raised-button [disabled]="converterForm.invalid"
                 class="py-2 bg-black text-white h-auto max-h-11">View
-                Details</button>
+                Details</a>
         </div>
     </form>
 </div>

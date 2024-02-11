@@ -17,8 +17,7 @@ export class CurrancyExchangerComponent implements OnInit, OnDestroy {
 
   subscription = new Subscription();
   currencies: Currency[] = []
-  converterForm: FormGroup = new FormGroup({})
-
+  converterForm: FormGroup = this.initForm()
   result = 0
   convertedCurrencyValue = 0
   showResult = true
@@ -29,14 +28,33 @@ export class CurrancyExchangerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getCurrencies()
     this.convertCurrency()
+    this.checkAmountChanges()
   }
 
   ngOnChanges() {
-    this.initForm()
+    this.converterForm = this.initForm()
+  }
+
+  checkAmountChanges() {
+    this.subscription.add(
+      this.getController('from').valueChanges.subscribe(
+        value => {
+          this.showResult = false
+          if (value) {
+            this.getController('from').disable();
+            this.getController('to').disable()
+          }
+          else {
+            this.getController('from').enable();
+            this.getController('to').enable();
+          }
+        }
+      )
+    )
   }
 
   initForm() {
-    this.converterForm = new FormGroup({
+    return new FormGroup({
       value: new FormControl(this.initData.value, [Validators.required, Validators.min(1)]),
       from: new FormControl({ value: this.initData?.from, disabled: this.isDetails }, [Validators.required]),
       to: new FormControl(this.initData?.to, [Validators.required])
