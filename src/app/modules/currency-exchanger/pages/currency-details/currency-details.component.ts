@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CurrencyService } from '../../services/currency.service';
 import { Subscription } from 'rxjs';
 import { FormInitData } from '../../models/currency.model';
 import { ActivatedRoute } from '@angular/router';
 import * as Highcharts from 'highcharts';
-import { data } from '../../constants/data.constant';
+import { CurrancyExchangerComponent } from '../../components/currancy-exchanger/currancy-exchanger.component';
 
 @Component({
   selector: 'app-currency-details',
@@ -12,19 +12,23 @@ import { data } from '../../constants/data.constant';
   styleUrls: ['./currency-details.component.scss']
 })
 export class CurrencyDetailsComponent implements OnInit, OnDestroy {
+  @ViewChild('currencyExchanger') currencyExchanger !: CurrancyExchangerComponent
   subscription = new Subscription();
   initData: FormInitData = new FormInitData();
 
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {}
-
+  monthes = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   selectedCurrencyName = ''
+
   constructor(private currencyService: CurrencyService, private activateRout: ActivatedRoute) { }
 
   ngOnInit() {
-    this.activateRout.queryParams.subscribe((params: any) => this.initData = { ...params })
+    this.activateRout.queryParams.subscribe((params: any) => {
+      this.initData = params;
+      this.currencyExchanger ? this.currencyExchanger.convertCurrency() : null;
+    })
     this.initChart();
-    this.getExchangeRates()
   }
 
   initChart() {
@@ -36,15 +40,26 @@ export class CurrencyDetailsComponent implements OnInit, OnDestroy {
         text: 'Monthly Currency Chart'
       },
       xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: [...this.monthes]
       },
-      series: [...data]
+      series: []
     };
   }
 
-  getExchangeRates() { // this Api is not for the free subscription so I used a dummy data
+  getExchangeRates() {
+    this.chartOptions.series = [];
     this.subscription.add(
-      this.currencyService.getMonthlyHistoricalRates(this.initData?.from).subscribe(data => console.log(data))
+      this.currencyService.getMonthlyHistoricalRates(this.initData.from, this.initData.to).subscribe((data: any) => {
+        let series: any = [{
+          name: this.initData.to,
+          data: []
+        }]
+        this.monthes.forEach((mounth, index) => {
+          let date = new Date(new Date().getFullYear() - 1, index + 1, 1).toISOString().split('T')[0];
+          series[0]['data'].push(data[date][this.initData?.from + this.initData.to])
+        })
+        this.chartOptions.series = [...series]
+      })
     )
   }
 

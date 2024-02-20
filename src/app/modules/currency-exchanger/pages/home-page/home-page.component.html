@@ -3,10 +3,11 @@
     <app-currancy-exchanger (currencyChanged)="initData = $event;getExchangeRates()"
         [initData]="initData"></app-currancy-exchanger>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 mt-9">
-        <ng-container *ngFor="let currency of otherCurrencies; let i=index">
+        <ng-container *ngFor="let currency of otherCurrencies;">
             <div class="card">
-                <p>{{initData.from}} / {{currency.key}}</p>
-                <h1>{{currency.value | number:'1.0-4'}} {{currency.key}}</h1>
+                <p>{{currency.key}}</p>
+                <h1>{{currency.value | number:'1.0-4'}}
+                    {{currency.key.substring(initData.from.length,currency.key.length )}}</h1>
             </div>
         </ng-container>
     </div>

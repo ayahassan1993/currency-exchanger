@@ -27,3 +27,7 @@ a {
 @tailwind utilities;
 
 @import "./assets/sass/custom-classes";
+
+.highcharts-credits {
+  display: none;
+}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CurrencyService } from '../../services/currency.service';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,31 +26,24 @@ export class CurrancyExchangerComponent implements OnInit, OnDestroy {
   constructor(private currencyService: CurrencyService) { }
 
   ngOnInit() {
-    this.getCurrencies()
-    this.convertCurrency()
-    this.checkAmountChanges()
+    this.getCurrencies();
+    this.convertCurrency();
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.converterForm = this.initForm()
   }
 
   checkAmountChanges() {
-    this.subscription.add(
-      this.getController('from').valueChanges.subscribe(
-        value => {
-          this.showResult = false
-          if (value) {
-            this.getController('from').disable();
-            this.getController('to').disable()
-          }
-          else {
-            this.getController('from').enable();
-            this.getController('to').enable();
-          }
-        }
-      )
-    )
+    if (!this.getController('value')?.value) {
+      this.getController('from').disable();
+      this.getController('to').disable()
+    }
+    else {
+      this.result = this.convertedCurrencyValue * this.getController('value')?.value;
+      !this.isDetails ? this.getController('from').enable() : null;
+      this.getController('to').enable();
+    }
   }
 
   initForm() {
@@ -66,6 +59,7 @@ export class CurrancyExchangerComponent implements OnInit, OnDestroy {
       this.currencyService.getCurrencies().subscribe({
         next: (res: Currency[]) => {
           this.currencies = res
+          this.isDetails ? this.fromChanged() : null;
         },
         error: (err: any) => { }
       })
@@ -79,7 +73,6 @@ export class CurrancyExchangerComponent implements OnInit, OnDestroy {
           this.convertedCurrencyValue = res;
           this.result = res * this.getController('value')?.value;
           this.showResult = true;
-          this.fromChanged();
           this.currencyChanged.emit({ ...this.converterForm.getRawValue() })
         })
     )

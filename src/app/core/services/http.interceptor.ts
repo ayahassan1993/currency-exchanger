@@ -24,11 +24,11 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         this.count++;
         let headers: HttpHeaders = new HttpHeaders({
             'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${environment.apiKey}`
+            'apikey': `${environment.apiKey}`
         });
         request = request.clone({
             headers: headers,
-            url: `${environment.apiUrl}/${environment.apiKey}/${request.url}`,
+            url: `${environment.apiUrl}/${request.url}`,
         });
 
         return next.handle(request).pipe(

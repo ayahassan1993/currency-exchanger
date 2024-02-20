@@ -5,7 +5,7 @@
             <!-- Amount  -->
             <mat-form-field class="w-full col-span-1  max-h-20">
                 <mat-label>Amount</mat-label>
-                <input formControlName="value" type="number" matInput>
+                <input formControlName="value" type="number" (keyup)="checkAmountChanges()" matInput>
                 <mat-error *ngIf="getController('value')?.invalid">
                     Amount is Required with minimum value 1
                 </mat-error>

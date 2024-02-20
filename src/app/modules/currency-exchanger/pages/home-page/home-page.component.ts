@@ -16,10 +16,10 @@ export class HomePageComponent implements OnDestroy {
   constructor(private currencyService: CurrencyService) { }
 
   getExchangeRates(): void {
+    let currencies = ['PLN', 'GBP', 'JPY', 'AED', 'ALL', 'AMD', 'ANG', 'ARS', 'AUD']
     this.subscription.add(
-      this.currencyService.getExchangeRates(this.initData.from).subscribe((data: any) => {
-        this.otherCurrencies = Object.keys(data?.conversion_rates)
-          .slice(1, 10).map((key) => { return { key: key, value: (+data?.conversion_rates[key] * this.initData.value) } });
+      this.currencyService.getExchangeRates(this.initData.from, currencies).subscribe((data: any) => {
+        this.otherCurrencies = data
       })
     )
   }

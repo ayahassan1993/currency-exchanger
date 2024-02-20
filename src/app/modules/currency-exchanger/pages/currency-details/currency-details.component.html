@@ -5,13 +5,13 @@
             home</button>
     </div>
 
-    <app-currancy-exchanger [initData]="initData" [isDetails]="true" (fromValueChanged)="selectedCurrencyName=$event"
-        (currencyChanged)="initData['from']=$event.currency;initData['value']=$event.amount;getExchangeRates()">
+    <app-currancy-exchanger #currencyExchanger [initData]="initData" [isDetails]="true"
+        (fromValueChanged)="selectedCurrencyName=$event" (currencyChanged)="initData = $event;getExchangeRates()">
     </app-currancy-exchanger>
 
     <!-- chart  -->
     <div class="mt-10">
-        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+        <highcharts-chart *ngIf="chartOptions.series?.length" [Highcharts]="Highcharts" [options]="chartOptions"
             style="width: 100%; height: 500px; display: block;padding-top: 1rem;"></highcharts-chart>
     </div>
 
